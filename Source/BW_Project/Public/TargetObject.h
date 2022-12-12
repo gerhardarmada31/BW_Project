@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "TargetObject.generated.h"
 
+
 UCLASS()
 class BW_PROJECT_API ATargetObject : public AActor, public ITeleportInterface
 {

@@ -23,4 +23,6 @@ class BW_PROJECT_API ITeleportInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
 public:
 	virtual void OnTargetTeleport(FVector targetTransform){}
+
+	virtual void OnObjectTrigger(){}
 };

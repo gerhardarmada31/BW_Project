@@ -84,18 +84,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UAnimMontage* FireAnimation;
 
-	/** Whether to use motion controller location for aiming. */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
-	uint8 bUsingMotionControllers : 1;
-	
+
 
 protected:
 	
 	/** Fires a projectile. */
 	void OnFire();
 
-	/** Resets HMD orientation and position in VR. */
-	void OnResetVR();
+
 
 	/** Handles moving forward/backward */
 	void MoveForward(float Val);
@@ -114,19 +110,8 @@ protected:
 	 * @param Rate	This is a normalized rate, i.e. 1.0 means 100% of desired turn rate
 	 */
 	void LookUpAtRate(float Rate);
+	
 
-	struct TouchData
-	{
-		TouchData() { bIsPressed = false;Location=FVector::ZeroVector;}
-		bool bIsPressed;
-		ETouchIndex::Type FingerIndex;
-		FVector Location;
-		bool bMoved;
-	};
-	void BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location);
-	void TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location);
-	TouchData	TouchItem;
 
 	UPROPERTY(EditAnywhere, Category=TraceLength)
 	float endpointDistance;

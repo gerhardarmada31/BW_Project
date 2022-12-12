@@ -8,11 +8,9 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"
 #include "GameFramework/InputSettings.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
 #include "MotionControllerComponent.h"
 #include "TargetObject.h"
-#include "XRMotionControllerBase.h" // for FXRMotionControllerBase::RightHandSourceId
 #include "TeleportInterface.h"
 #define print(text) if(GEngine) GEngine->AddOnScreenDebugMessage(-1,1.5, FColor::Green,text)
 #define printf(text, fstring) if(GEngine) GEngine->AddOnScreenDebugMessage(-1,1.5,FColor::Green,FString::Printf(TEXT(text),fstring))
@@ -125,14 +123,15 @@ void ABW_ProjectCharacter::OnFire()
 {
 	print("ooh shots fired");
 
-	FVector start = FP_Gun->GetComponentLocation();
+	FVector start = FirstPersonCameraComponent->GetComponentLocation();
 	FVector forwardVector = FirstPersonCameraComponent->GetForwardVector();
-	FVector endPoint = start +  forwardVector*endpointDistance;
+	FVector endPoint = start +(forwardVector*endpointDistance);
 
 	FHitResult outHit;
 	FCollisionQueryParams params;
 	params.AddIgnoredActor(this);
-	
+
+	//bool ishit2 = GetWorld()->Sweep
 	bool isHit = GetWorld()->LineTraceSingleByChannel(outHit,start,endPoint,ECC_Visibility,params);
 	DrawDebugLine(GetWorld(),start,endPoint,FColor::Cyan, false,1,0,1 );
 	if (isHit)
@@ -154,68 +153,7 @@ void ABW_ProjectCharacter::OnFire()
 }
 
 
-void ABW_ProjectCharacter::BeginTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == true)
-	{
-		return;
-	}
-	if ((FingerIndex == TouchItem.FingerIndex) && (TouchItem.bMoved == false))
-	{
-		OnFire();
-	}
-	TouchItem.bIsPressed = true;
-	TouchItem.FingerIndex = FingerIndex;
-	TouchItem.Location = Location;
-	TouchItem.bMoved = false;
-}
 
-void ABW_ProjectCharacter::EndTouch(const ETouchIndex::Type FingerIndex, const FVector Location)
-{
-	if (TouchItem.bIsPressed == false)
-	{
-		return;
-	}
-	TouchItem.bIsPressed = false;
-}
-
-//Commenting this section out to be consistent with FPS BP template.
-//This allows the user to turn without using the right virtual joystick
-
-//void ABW_ProjectCharacter::TouchUpdate(const ETouchIndex::Type FingerIndex, const FVector Location)
-//{
-//	if ((TouchItem.bIsPressed == true) && (TouchItem.FingerIndex == FingerIndex))
-//	{
-//		if (TouchItem.bIsPressed)
-//		{
-//			if (GetWorld() != nullptr)
-//			{
-//				UGameViewportClient* ViewportClient = GetWorld()->GetGameViewport();
-//				if (ViewportClient != nullptr)
-//				{
-//					FVector MoveDelta = Location - TouchItem.Location;
-//					FVector2D ScreenSize;
-//					ViewportClient->GetViewportSize(ScreenSize);
-//					FVector2D ScaledDelta = FVector2D(MoveDelta.X, MoveDelta.Y) / ScreenSize;
-//					if (FMath::Abs(ScaledDelta.X) >= 4.0 / ScreenSize.X)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.X * BaseTurnRate;
-//						AddControllerYawInput(Value);
-//					}
-//					if (FMath::Abs(ScaledDelta.Y) >= 4.0 / ScreenSize.Y)
-//					{
-//						TouchItem.bMoved = true;
-//						float Value = ScaledDelta.Y * BaseTurnRate;
-//						AddControllerPitchInput(Value);
-//					}
-//					TouchItem.Location = Location;
-//				}
-//				TouchItem.Location = Location;
-//			}
-//		}
-//	}
-//}
 
 void ABW_ProjectCharacter::MoveForward(float Value)
 {
@@ -247,17 +185,4 @@ void ABW_ProjectCharacter::LookUpAtRate(float Rate)
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
 
-bool ABW_ProjectCharacter::EnableTouchscreenMovement(class UInputComponent* PlayerInputComponent)
-{
-	if (FPlatformMisc::SupportsTouchInput() || GetDefault<UInputSettings>()->bUseMouseForTouch)
-	{
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Pressed, this, &ABW_ProjectCharacter::BeginTouch);
-		PlayerInputComponent->BindTouch(EInputEvent::IE_Released, this, &ABW_ProjectCharacter::EndTouch);
 
-		//Commenting this out to be more consistent with FPS BP template.
-		//PlayerInputComponent->BindTouch(EInputEvent::IE_Repeat, this, &ABW_ProjectCharacter::TouchUpdate);
-		return true;
-	}
-	
-	return false;
-}
