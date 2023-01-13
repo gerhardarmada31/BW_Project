@@ -26,17 +26,24 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UStaticMeshComponent* mesh;
 
-	UPROPERTY(EditAnywhere)
-	class ATargetObject* targetObject;
+	UPROPERTY(EditAnywhere, Category="Secondary Mesh")
+	UStaticMeshComponent* secondaryMesh = nullptr;
 
 	UPROPERTY(EditAnywhere)
+	class ATargetObject* targetObject;
+	
+	UPROPERTY(EditAnywhere)
 	class ABW_ProjectCharacter* playerCharacter;
+
+	UPROPERTY(EditAnywhere, Category="OutputActor")
+	AActor* doorActor;
+
+
 
 	UPROPERTY(EditAnywhere, Category="Player Trigger")
 	bool isPlayerTrigger;
 
-	UPROPERTY(EditAnywhere, Category="OutputActor")
-	AActor* doorActor;
+
 
 public:	
 	// Called every frame

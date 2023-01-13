@@ -119,6 +119,13 @@ void ABW_ProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	PlayerInputComponent->BindAxis("LookUpRate", this, &ABW_ProjectCharacter::LookUpAtRate);
 }
 
+//Player falls and restart
+void ABW_ProjectCharacter::FellOutOfWorld(const UDamageType& dmgType)
+{
+	print("I'm falling");
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()),false);
+}
+
 void ABW_ProjectCharacter::OnFire()
 {
 	print("ooh shots fired");

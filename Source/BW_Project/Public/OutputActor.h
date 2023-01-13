@@ -20,7 +20,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-
+	bool isKeyIn;
 
 	UPROPERTY(VisibleAnywhere, Category=Mesh)
 	UStaticMeshComponent* mesh;
@@ -28,6 +28,12 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnKeyIn();
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void OnKeyOut();
 	
 	virtual void OnKeyCollide(bool isKeyEntered) override;
 

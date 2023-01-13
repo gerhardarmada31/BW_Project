@@ -1,7 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green,text)
-#define printFString(text, fstring) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT(text), fstring))
-
+#define printf(text, fstring) if(GEngine) GEngine->AddOnScreenDebugMessage(-1,1.5,FColor::Green,FString::Printf(TEXT(text),fstring))
 #include "OutputActor.h"
 
 
@@ -26,10 +25,14 @@ void AOutputActor::OnKeyCollide(bool isKeyEntered)
 	{
 		//Activate the door to kingdom hearts....
 		print("KEY ENTERED!!!");
+		isKeyIn = true;
+		OnKeyIn();
 	}
 	else
 	{
 		print("KEY NOT ENTERED");
+		isKeyIn = false;
+		OnKeyOut();
 	}
 }
 

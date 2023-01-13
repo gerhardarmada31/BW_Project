@@ -9,17 +9,25 @@
 #include "BW_Project/BW_ProjectCharacter.h"
 
 #define print(text) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 1.5, FColor::Green,text)
-#define printFString(text, fstring) if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT(text), fstring))
+#define printf(text, fstring) if(GEngine) GEngine->AddOnScreenDebugMessage(-1,1.5,FColor::Green,FString::Printf(TEXT(text),fstring))
 
 
 
 APlatformTrigger::APlatformTrigger()
 {
+		RootComponent=mesh;
 		platformCollisionBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collider"));
 		platformCollisionBox->SetBoxExtent(FVector(200,200,200));
-		RootComponent=mesh;
+	
 		platformCollisionBox->SetRelativeLocation(FVector(200,200,0));
+
+		secondaryMesh->SetupAttachment(RootComponent);
+		//secondaryMesh->SetRelativeLocation(FVector(200,200,5));
+		//secondaryMesh->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepRelativeTransform);
+
 		platformCollisionBox->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepRelativeTransform);
+
+
 
 	platformCollisionBox->OnComponentBeginOverlap.AddDynamic(this, &APlatformTrigger::OnOverlapBegin);
 	platformCollisionBox->OnComponentEndOverlap.AddDynamic(this, &APlatformTrigger::OnOverlapEnd);
@@ -75,7 +83,9 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 		{
 			playerCharacter = Cast<ABW_ProjectCharacter>(OtherActor);
 			targetObject = Cast<ATargetObject>(OtherActor);
-
+		
+			
+			
 			//Checks if the player counts as a trigger object
 			if(isPlayerTrigger)
 			{
@@ -85,6 +95,8 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 					{
 						keyObject->OnKeyCollide(true);
 						//print("key is TRUE");
+						//playerCharacter->GetName();
+						//printf("PlayerCharacter %s", *playerCharacter->GetName());
 					}
 				}
 			}
@@ -92,14 +104,19 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 			{
 				if(targetObject)
 				{
+					print("key is TRUE");
 					if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
 					{
 						keyObject->OnKeyCollide(true);
-						//print("key is TRUE");
+					
 					}
 				}
 			}
 		}
+	}
+	else
+	{
+		print("output actor is empty");
 	}
 
 }

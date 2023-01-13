@@ -12,6 +12,9 @@ ATriggerObject::ATriggerObject()
 	PrimaryActorTick.bCanEverTick = true;
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
+	secondaryMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Second Mesh"));
+
+
 	
 	doorActor = CreateDefaultSubobject<AActor>(TEXT("Output Actor"));
 }

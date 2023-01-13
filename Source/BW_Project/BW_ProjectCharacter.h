@@ -80,9 +80,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	USoundBase* FireSound;
 
+	
 	/** AnimMontage to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Gameplay)
 	UAnimMontage* FireAnimation;
+
+	//Function where the player falls to the killz volume
+	void FellOutOfWorld(const UDamageType& dmgType) override;
 
 
 
