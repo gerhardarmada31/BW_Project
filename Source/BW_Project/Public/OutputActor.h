@@ -22,9 +22,6 @@ protected:
 
 	bool isKeyIn;
 
-	UPROPERTY(VisibleAnywhere, Category=Mesh)
-	UStaticMeshComponent* mesh;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

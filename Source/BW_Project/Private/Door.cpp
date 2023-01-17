@@ -7,10 +7,9 @@
 
 ADoor::ADoor()
 {
-	endPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Endpoint"));
-	RootComponent = mesh;
-	endPoint-> SetupAttachment(RootComponent);
-
+	rootPoint = CreateDefaultSubobject<USceneComponent>(TEXT("Endpoint"));
+	RootComponent = rootPoint;
+	
 	//parent = GetOwner();
 	//put this in begin play
 }
@@ -24,8 +23,6 @@ void ADoor::DoorOpening()
 void ADoor::BeginPlay()
 {
 	Super::BeginPlay();
-	startLocation=GetActorLocation();
-	targetlocation = startLocation-endLocation;
 	//startLocation=GetOwner()->GetActorLocation();
 	//printf("The Owner is %s", *parent->GetName());
 }

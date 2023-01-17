@@ -29,19 +29,14 @@ public:
 
 protected:
 	UPROPERTY(EditAnywhere)
-	USceneComponent* endPoint = nullptr;
+	USceneComponent* rootPoint = nullptr;
 
 	AActor* parent = nullptr;
 	FVector startLocation;
 
-	UPROPERTY(EditAnywhere,Category="Lerp",meta=(MakeEditWidget=true))
+	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Lerp",meta=(MakeEditWidget=true))
 	FVector endLocation;
-
-	UPROPERTY(EditAnywhere, Category="Lerp")
-	float lerpDuration=5.0f;
-
-	UPROPERTY(EditAnywhere,Category="Lerp")
-	float timeElapsed = 0.0f;
+	
 
 	FVector targetlocation;
 
