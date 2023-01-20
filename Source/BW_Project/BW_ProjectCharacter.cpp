@@ -104,6 +104,8 @@ void ABW_ProjectCharacter::SetupPlayerInputComponent(class UInputComponent* Play
 	// Bind fire event
 	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &ABW_ProjectCharacter::OnFire);
 
+	//Bind restart event
+	PlayerInputComponent->BindAction("ResetLevel", IE_Pressed,this,&ABW_ProjectCharacter::OnRestart);
 
 
 	// Bind movement events
@@ -191,5 +193,11 @@ void ABW_ProjectCharacter::LookUpAtRate(float Rate)
 	// calculate delta for this frame from the rate information
 	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds());
 }
+
+void ABW_ProjectCharacter::OnRestart()
+{
+	UGameplayStatics::OpenLevel(this, FName(*GetWorld()->GetName()),false);
+}
+
 
 

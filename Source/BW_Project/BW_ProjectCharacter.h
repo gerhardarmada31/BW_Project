@@ -95,6 +95,9 @@ protected:
 	/** Fires a projectile. */
 	void OnFire();
 
+	//Restarts the level
+	void OnRestart();
+
 
 
 	/** Handles moving forward/backward */

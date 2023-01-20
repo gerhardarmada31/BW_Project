@@ -4,6 +4,7 @@
 
 #include "KeyObjectInteract.h"
 #include "CoreMinimal.h"
+#include "OutputActor.h"
 #include "GameFramework/Actor.h"
 #include "TriggerObject.generated.h"
 
@@ -29,14 +30,17 @@ protected:
 	UPROPERTY(EditAnywhere, Category="Secondary Mesh")
 	UStaticMeshComponent* secondaryMesh = nullptr;
 
-	UPROPERTY(EditAnywhere)
+	//UPROPERTY(EditAnywhere)
 	class ATargetObject* targetObject;
 	
-	UPROPERTY(EditAnywhere)
+	//UPROPERTY(EditAnywhere)
 	class ABW_ProjectCharacter* playerCharacter;
 
+	// UPROPERTY(EditAnywhere, Category="OutputActor")
+	// AActor* doorActor;
+
 	UPROPERTY(EditAnywhere, Category="OutputActor")
-	AActor* doorActor;
+	AOutputActor* doorActor;
 
 
 

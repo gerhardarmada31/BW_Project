@@ -16,7 +16,7 @@ ATriggerObject::ATriggerObject()
 
 
 	
-	doorActor = CreateDefaultSubobject<AActor>(TEXT("Output Actor"));
+//	doorActor = CreateDefaultSubobject<AActor>(TEXT("Output Actor"));
 }
 
 // Called when the game starts or when spawned
