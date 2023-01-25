@@ -22,6 +22,9 @@ APlatformTrigger::APlatformTrigger()
 		platformCollisionBox->SetRelativeLocation(FVector(200,200,0));
 
 		secondaryMesh->SetupAttachment(RootComponent);
+
+		materialOn = CreateDefaultSubobject<UMaterialInstance>("MaterialOn");
+		materialOff = CreateDefaultSubobject<UMaterialInstance>("MaterialOff");
 		//secondaryMesh->SetRelativeLocation(FVector(200,200,5));
 		//secondaryMesh->AttachToComponent(RootComponent,FAttachmentTransformRules::KeepRelativeTransform);
 
@@ -50,22 +53,14 @@ void APlatformTrigger::OnOverlapEnd(UPrimitiveComponent* OverlappedComp, AActor*
 			{
 				if (playerCharacter || targetObject)
 				{
-					if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
-					{
-						keyObject->OnKeyCollide(false);
-						//print("key is FALSE");
-					}
+					PlatformOff();
 				}
 			}
 			else
 			{
 				if(targetObject)
 				{
-					if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
-					{
-						keyObject->OnKeyCollide(false);
-						//print("key is FALSE");
-					}
+					PlatformOff();
 				}
 			}
 		}
@@ -83,33 +78,19 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 		{
 			playerCharacter = Cast<ABW_ProjectCharacter>(OtherActor);
 			targetObject = Cast<ATargetObject>(OtherActor);
-		
-			
-			
 			//Checks if the player counts as a trigger object
 			if(isPlayerTrigger)
 			{
 				if (playerCharacter || targetObject)
 				{
-					if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
-					{
-						keyObject->OnKeyCollide(true);
-						//print("key is TRUE");
-						//playerCharacter->GetName();
-						//printf("PlayerCharacter %s", *playerCharacter->GetName());
-					}
+					PlatformOn();
 				}
 			}
 			else
 			{
 				if(targetObject)
 				{
-					print("key is TRUE");
-					if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
-					{
-						keyObject->OnKeyCollide(true);
-					
-					}
+					PlatformOn();
 				}
 			}
 		}
@@ -120,6 +101,31 @@ void APlatformTrigger::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 	}
 
 }
+
+void APlatformTrigger::PlatformOn()
+{
+	if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
+	{
+		keyObject->OnKeyCollide(true);
+		//print("key is TRUE");
+		//playerCharacter->GetName();
+		//printf("PlayerCharacter %s", *playerCharacter->GetName());
+		secondaryMesh->SetMaterial(0,materialOn);
+						
+	}
+}
+
+void APlatformTrigger::PlatformOff()
+{
+	if(IKeyObjectInteract* keyObject=Cast<IKeyObjectInteract>(doorActor))
+	{
+		keyObject->OnKeyCollide(false);
+		secondaryMesh->SetMaterial(0,materialOff);
+		//print("key is FALSE");
+	}
+}
+
+
 
 
 

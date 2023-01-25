@@ -28,6 +28,12 @@ public:
 	UBoxComponent* platformCollisionBox = nullptr;
 
 
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Materials")
+	UMaterialInstance* materialOn;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="Materials")
+	UMaterialInstance* materialOff;
+	
 		
 	UFUNCTION()
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -35,5 +41,7 @@ public:
 	UFUNCTION()
 	void OnOverlapEnd(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
+	void PlatformOn();
+	void PlatformOff();
 
 };

@@ -36,8 +36,6 @@ protected:
 
 	UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="Lerp",meta=(MakeEditWidget=true))
 	FVector endLocation;
-	
-
 	FVector targetlocation;
 
 	void DoorOpening();

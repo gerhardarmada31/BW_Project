@@ -31,30 +31,6 @@ void ADoor::BeginPlay()
 void ADoor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	
-	if(isKeyIn)
-	{
-		// if (timeElapsed < lerpDuration)
-		// {
-		// 	//SetActorLocation(endPoint->GetRelativeLocation(),false,0,ETeleportType::None);
-		// 	//mesh->SetRelativeLocation(endPoint->GetRelativeLocation(),false,0,ETeleportType::None);
-		// 	
-		// 	mesh->SetRelativeLocation(FMath::Lerp(startLocation,targetlocation,timeElapsed/lerpDuration));
-		// 	//parent->SetActorLocation(FMath::Lerp(startLocation,endLocation,timeElapsed/lerpDuration));
-		// 	//mesh->SetRelativeTransform(FMath::Lerp(startLocation,endLocation,timeElapsed/lerpDuration),false,0,ETeleportType::None);
-		// 	timeElapsed+=DeltaTime;
-		// }
-	}
-	else
-	{
-		// print("fr not entered");
-	 //    if(timeElapsed < lerpDuration)
-	 //    {
-	 //    	mesh->SetRelativeLocation(FMath::Lerp(startLocation,(targetlocation*(-1.0f)),timeElapsed/lerpDuration));
-	 //    	timeElapsed+=DeltaTime;
-	 //    }
-	}
 	
 }
 
